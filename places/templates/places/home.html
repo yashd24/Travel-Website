@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  {%load static%}
+  <head>
+    <title>WanderLust</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'CSS/style.css'%}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <label class="logo"> WanderLust </label>
+        <ul>
+          {% block login %}
+          <li><a href="{% url 'login'%}">Login</a></li>
+          {% endblock login %}
+
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Destinations</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <img src="{% static 'img/bg-img-1.jpg' %}" class="img1" />
+        <div class="text1">
+          <h1>Explore the World</h1>
+          <p>Discover amazing destinations around the globe.</p>
+          {% block create %}{% endblock create %}
+        </div>
+      </section>
+
+      <section class="destinations">
+        <h2>Popular Destinations</h2>
+        <br />
+        <div class="container">
+          {%for place in ele%}
+          <div class="card">
+            <img src="{{place.img.url}}" class="card-img" />
+            <div class="card-body">
+              <div class="title">{{place.name}} <br /></div>
+              <div class="desc">{{place.desc}} <br /></div>
+              <div class="amt">{{place.amt}} <br /></div>
+              {% block delete %}{% endblock delete %}
+            </div>
+          </div>
+          {%endfor%}
+        </div>
+      </section>
+
+      <section class="about-us">
+        <h2>About Us</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra
+          tellus eget dui ullamcorper convallis. Aliquam sed sapien at sem
+          bibendum venenatis nec vitae odio.
+        </p>
+        <p>
+          Suspendisse et justo eget ipsum vehicula lobortis quis eu odio. Ut sit
+          amet ex vitae nibh feugiat congue. Morbi feugiat libero vel enim
+          dictum pharetra.
+        </p>
+      </section>
+
+      <footer class="contact">
+        <h2>Contact Us</h2>
+        <form>
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" required></textarea>
+
+          <button type="submit">Send</button>
+        </form>
+      </footer>
+    </main>
+
+    <footer>
+      <p>&copy; 2023 Travel Website. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
+
+{% comment %}
+<div class="container">
+  {%for place in ele%}
+  <div class="card">
+    <img src="{{place.img.url}}" class="card-img" />
+    <div class="card-body">
+      <div class="title">{{place.name}} <br /></div>
+      <div class="desc">{{place.desc}} <br /></div>
+      <div class="amt">{{place.amt}} <br /></div>
+      <button>
+        <a href="{%url 'delete' place.id %}" class="delete"> Delete </a>
+      </button>
+    </div>
+  </div>
+  {%endfor%}
+</div>
+{% endcomment %}
