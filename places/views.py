@@ -4,6 +4,7 @@ from .forms import MyForm, signup_form
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.core.mail import send_mail
 
 
 def home(request):
@@ -67,7 +68,19 @@ def register(request):
     if request.method == "POST":
         form = signup_form(request.POST)
         if form.is_valid():
+
+            email = request.POST.get('email')
+            print(type(email), email)
+
+            send_mail(
+                'Welcome To Travello',
+                'Congratulations!! You Have Successfully Registered',
+                'yash.test.noreply@gmail.com',
+                [email],
+                fail_silently=False,
+            )
             form.save()
+
             return redirect('login')
 
     return render(request, 'places/signup.html', {'form': form})
